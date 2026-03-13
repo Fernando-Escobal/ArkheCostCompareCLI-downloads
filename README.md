@@ -4,7 +4,7 @@ This is a local CLI that compares team and constellation combinations using a lo
 
 This README is for users who receive the packaged file:
 
-- arkhe-cost-compare-cli-0.1.1.tgz
+- versions/arkhe-cost-compare-cli-0.1.1.tgz
 
 ## What you need
 
@@ -17,11 +17,12 @@ This README is for users who receive the packaged file:
 Run from the folder where the package exists:
 
 ```powershell
-npm install -g .\arkhe-cost-compare-cli-0.1.1.tgz
+npm install -g .\versions\arkhe-cost-compare-cli-0.1.1.tgz
+
 ```
 
 ```bash
-npm install -g ./arkhe-cost-compare-cli-0.1.1.tgz
+npm install -g ./versions/arkhe-cost-compare-cli-0.1.1.tgz
 ```
 
 Verify installation:
