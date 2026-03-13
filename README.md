@@ -4,20 +4,24 @@ This is a local CLI that compares team and constellation combinations using a lo
 
 This README is for users who receive the packaged file:
 
-- arkhe-cost-compare-cli-0.1.0.tgz
+- arkhe-cost-compare-cli-0.1.1.tgz
 
 ## What you need
 
-- Windows PowerShell
+- Windows, Linux, or macOS
 - Node.js 18+
-- My local gcsim executable
+- Local gcsim executable
 
 ## Install from .tgz
 
-Run in PowerShell from the folder where the package exists:
+Run from the folder where the package exists:
 
 ```powershell
-npm install -g .\arkhe-cost-compare-cli-0.1.0.tgz
+npm install -g .\arkhe-cost-compare-cli-0.1.1.tgz
+```
+
+```bash
+npm install -g ./arkhe-cost-compare-cli-0.1.1.tgz
 ```
 
 Verify installation:
@@ -30,11 +34,13 @@ arkhe-cc help
 
 1. Create a working folder for your runs.
 2. Add your scenario file (for example: example.scenario.txt).
-3. Ensure gcsim.exe is reachable.
+3. Ensure gcsim is reachable.
 
 By default, if simulation.gcsimPath is empty, the CLI tries:
 
-- ../gcsim/gcsim.exe
+- Windows: ../gcsim/gcsim.exe, ../gcsim/gcsim_windows_amd64.exe
+- Linux: ../gcsim/gcsim, ../gcsim/gcsim_linux_amd64
+- macOS: ../gcsim/gcsim, ../gcsim/gcsim_darwin_arm64, ../gcsim/gcsim_darwin_amd64
 
 You can also pass it explicitly with --gcsimPath.
 
@@ -68,6 +74,10 @@ Use a specific gcsim path:
 
 ```powershell
 arkhe-cc run --scenario .\example.scenario.txt --gcsimPath D:\tools\gcsim\gcsim.exe
+```
+
+```bash
+arkhe-cc run --scenario ./example.scenario.txt --gcsimPath /opt/gcsim/gcsim
 ```
 
 ## Scenario notes
