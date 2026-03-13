@@ -18,7 +18,7 @@ A scenario file is divided into six sections:
 [output]
 ```
 
-Lines that start with `#` or `;` are comments and are ignored.  
+Lines that start with `#` or `;` are comments and are ignored.
 Every other non-empty line must follow the `key=value` format.
 
 ---
@@ -27,10 +27,10 @@ Every other non-empty line must follow the `key=value` format.
 
 General information about this scenario.
 
-| Key | Required | Description |
-|-----|----------|-------------|
-| `name` | No | A label for the scenario (used in logs). |
-| `version` | No | Your own version number. Defaults to `1`. |
+| Key         | Required | Description                                 |
+| ----------- | -------- | ------------------------------------------- |
+| `name`    | No       | A label for the scenario (used in logs).    |
+| `version` | No       | Your own version number. Defaults to `1`. |
 
 ```ini
 [meta]
@@ -44,18 +44,18 @@ version=1
 
 Controls how gcsim runs each build.
 
-| Key | Default | Description |
-|-----|---------|-------------|
-| `iterations` | `100` | Number of gcsim iterations per build. Higher = more accurate, slower. |
-| `rots` | `4` | Number of rotation cycles gcsim simulates. |
-| `parallel` | `4` | How many gcsim processes run in parallel. Keep at or below your CPU core count. |
-| `timeoutMs` | `120000` | Max milliseconds allowed per gcsim run before it is killed. |
-| `gcsimPath` | *(auto)* | Absolute or relative path to the `gcsim` executable. If empty, the CLI looks for `../gcsim/gcsim.exe` relative to itself. |
-| `erIterations` | `350` | Iterations used when computing Energy Recharge requirements. |
-| `erPercentile` | `0.8` | ER percentile target (0–1). `0.8` means "cover 80% of runs". |
-| `enableER` | `false` | Set `true` to automatically compute and apply ER thresholds per character. |
-| `substatOptim` | `false` | Set `true` to run gcsim's substat optimizer before the comparison. |
-| `gcsimVerbose` | `false` | Set `true` to print full gcsim stdout to the console (useful for debugging). |
+| Key              | Default    | Description                                                                                                                   |
+| ---------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `iterations`   | `100`    | Number of gcsim iterations per build. Higher = more accurate, slower.                                                         |
+| `rots`         | `4`      | Number of rotation cycles gcsim simulates.                                                                                    |
+| `parallel`     | `4`      | How many gcsim processes run in parallel. Keep at or below your CPU core count.                                               |
+| `timeoutMs`    | `120000` | Max milliseconds allowed per gcsim run before it is killed.                                                                   |
+| `gcsimPath`    | _(auto)_ | Absolute or relative path to the `gcsim` executable. If empty, the CLI looks for `../gcsim/gcsim.exe` relative to itself. |
+| `erIterations` | `350`    | Iterations used when computing Energy Recharge requirements.                                                                  |
+| `erPercentile` | `0.8`    | ER percentile target (0–1).`0.8` means "cover 80% of runs".                                                                |
+| `enableER`     | `false`  | Set `true` to automatically compute and apply ER thresholds per character.                                                  |
+| `substatOptim` | `false`  | Set `true` to run gcsim's substat optimizer before the comparison.                                                          |
+| `gcsimVerbose` | `false`  | Set `true` to print full gcsim stdout to the console (useful for debugging).                                                |
 
 ```ini
 [simulation]
@@ -78,7 +78,7 @@ gcsimVerbose=false
 
 ## [rotations]
 
-Defines the rotation sequences to compare.  
+Defines the rotation sequences to compare.
 Each rotation has three fields: `label`, `weight`, and `input`.
 
 ```ini
@@ -110,7 +110,7 @@ r2.input=Yelan EQ > Zhongli EQ > Xingqiu EQ > Hu Tao E AAAAAAA Q
 
 ## [team]
 
-Defines the four team members — one per slot.  
+Defines the four team members — one per slot.
 Each slot has six fields: `character`, `cons`, `weapon4`, `weapon5`, `set`, and `main`.
 
 ```ini
@@ -126,7 +126,7 @@ slotN.main=<main stat shorthand>
 
 ### `cons` — Constellation options
 
-Use `|` to specify multiple values to compare across.  
+Use `|` to specify multiple values to compare across.
 The CLI generates a separate build for every combination of cons values.
 
 ```ini
@@ -162,13 +162,14 @@ slot3.set=2cw2pw         # mixed sets
 
 A 3-character code describing the main stats of Sands / Goblet / Circlet:
 
-| Position | Meaning | Common values |
-|----------|---------|---------------|
-| 1st char | Sands main stat | `e` = EM, `h` = HP%, `a` = ATK%, `d` = DEF%, `r` = ER% |
-| 2nd char | Goblet main stat | `e` = EM, `h` = HP%, `a` = ATK%, `d` = DEF%, `p` = Pyro/Hydro/etc. Dmg% |
+| Position | Meaning           | Common values                                                                            |
+| -------- | ----------------- | ---------------------------------------------------------------------------------------- |
+| 1st char | Sands main stat   | `e` = EM, `h` = HP%, `a` = ATK%, `d` = DEF%, `r` = ER%                         |
+| 2nd char | Goblet main stat  | `e` = EM, `h` = HP%, `a` = ATK%, `d` = DEF%, `p` = Pyro/Hydro/etc. Dmg%        |
 | 3rd char | Circlet main stat | `e` = EM, `h` = HP%, `a` = ATK%, `d` = DEF%, `c` = Crit Rate, `r` = Crit DMG |
 
 Examples:
+
 - `edc` → EM Sands / DMG% Goblet / Crit Circlet
 - `adc` → ATK% Sands / DMG% Goblet / Crit Circlet
 - `hdc` → HP% Sands / DMG% Goblet / Crit Circlet
@@ -220,10 +221,10 @@ slot4.main=hdc
 
 Controls which build combinations are tested.
 
-| Key | Default | Description |
-|-----|---------|-------------|
-| `liquidRolls` | *(required)* | Comma-separated list of total liquid roll counts to simulate. |
-| `requireWeight100` | `true` | If `true`, validates that all rotation weights sum to exactly `100`. |
+| Key                  | Default        | Description                                                              |
+| -------------------- | -------------- | ------------------------------------------------------------------------ |
+| `liquidRolls`      | _(required)_ | Comma-separated list of total liquid roll counts to simulate.            |
+| `requireWeight100` | `true`       | If `true`, validates that all rotation weights sum to exactly `100`. |
 
 ```ini
 [selection]
@@ -244,15 +245,15 @@ combination of: `cons values × weapon choices × liquidRolls values`.
 
 Controls where results are saved and how they are sorted.
 
-| Key | Default | Description |
-|-----|---------|-------------|
-| `csv` | `./out/results.csv` | Path for the CSV output file. |
-| `json` | *(empty)* | Path for the JSON output file. Leave empty to skip. |
-| `sortBy` | `weightedDps` | Column to sort results by. Options: `weightedDps`, `dps`, `label`. |
-| `sortDir` | `desc` | Sort direction. `desc` = highest first, `asc` = lowest first. |
-| `topN` | `0` | Keep only the top N results. `0` = keep all. |
-| `keepTemp` | `false` | If `true`, the temporary gcsim files are not deleted after the run. |
-| `tempDir` | `./.tmp` | Directory for intermediate per-build gcsim files. |
+| Key          | Default               | Description                                                             |
+| ------------ | --------------------- | ----------------------------------------------------------------------- |
+| `csv`      | `./out/results.csv` | Path for the CSV output file.                                           |
+| `json`     | _(empty)_           | Path for the JSON output file. Leave empty to skip.                     |
+| `sortBy`   | `weightedDps`       | Column to sort results by. Options:`weightedDps`, `dps`, `label`. |
+| `sortDir`  | `desc`              | Sort direction.`desc` = highest first, `asc` = lowest first.        |
+| `topN`     | `0`                 | Keep only the top N results.`0` = keep all.                           |
+| `keepTemp` | `false`             | If `true`, the temporary gcsim files are not deleted after the run.   |
+| `tempDir`  | `./.tmp`            | Directory for intermediate per-build gcsim files.                       |
 
 ```ini
 [output]
@@ -280,12 +281,12 @@ or `2` (weapon4 + weapon5) if a 5-star is provided.
 
 **Example** with the team above:
 
-| Slot | Cons options | Weapon choices |
-|------|-------------|----------------|
-| Hu Tao | 0, 1 → 2 | staff + dragon → 2 |
-| Xingqiu | 6 → 1 | only weapon4 → 1 |
-| Zhongli | 0 → 1 | only weapon4 → 1 |
-| Yelan | 0, 1 → 2 | elegy + favonius → 2 |
+| Slot    | Cons options | Weapon choices        |
+| ------- | ------------ | --------------------- |
+| Hu Tao  | 0, 1 → 2    | staff + dragon → 2   |
+| Xingqiu | 6 → 1       | only weapon4 → 1     |
+| Zhongli | 0 → 1       | only weapon4 → 1     |
+| Yelan   | 0, 1 → 2    | elegy + favonius → 2 |
 
 With `liquidRolls=20,22,24` (3 values):
 
