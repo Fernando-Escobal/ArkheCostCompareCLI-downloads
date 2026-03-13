@@ -2,9 +2,8 @@
 
 This is a local CLI that compares team and constellation combinations using a local gcsim executable.
 
-This README is for users who receive the packaged file:
-
-- versions/arkhe-cost-compare-cli-0.1.1.tgz
+This README is for users who receive the packaged file.
+The latest package is the `.tgz` file at the root of this repository.
 
 ## What you need
 
@@ -17,12 +16,11 @@ This README is for users who receive the packaged file:
 Run from the folder where the package exists:
 
 ```powershell
-npm install -g .\versions\arkhe-cost-compare-cli-0.1.1.tgz
-
+npm install -g .\arkhe-cost-compare-cli-*.tgz
 ```
 
 ```bash
-npm install -g ./versions/arkhe-cost-compare-cli-0.1.1.tgz
+npm install -g ./arkhe-cost-compare-cli-*.tgz
 ```
 
 Verify installation:
