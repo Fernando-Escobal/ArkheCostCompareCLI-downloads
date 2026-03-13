@@ -223,11 +223,13 @@ Controls which build combinations are tested.
 
 | Key                  | Default        | Description                                                              |
 | -------------------- | -------------- | ------------------------------------------------------------------------ |
+| `maxRolls`         | `45`         | Global roll budget cap used by optimization formulas. Valid range: `15..45`. |
 | `liquidRolls`      | _(required)_ | Comma-separated list of total liquid roll counts to simulate.            |
 | `requireWeight100` | `true`       | If `true`, validates that all rotation weights sum to exactly `100`. |
 
 ```ini
 [selection]
+maxRolls=45
 liquidRolls=20,22,24
 requireWeight100=true
 ```
@@ -235,6 +237,8 @@ requireWeight100=true
 **`liquidRolls`** represents how many "free" artifact rolls you distribute among
 your characters (substat rolls available for optimization). The CLI runs every
 combination of: `cons values × weapon choices × liquidRolls values`.
+
+For valid inputs, each liquid rolls value must satisfy: `20 <= liquidRoll <= maxRolls`.
 
 > Use `dry-run` to preview how many total builds will be generated before
 > committing to a full `run`.
@@ -357,6 +361,7 @@ slot4.set=4emblem
 slot4.main=hdc
 
 [selection]
+maxRolls=45
 liquidRolls=20,22,24
 requireWeight100=true
 
