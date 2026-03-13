@@ -111,7 +111,7 @@ r2.input=Yelan EQ > Zhongli EQ > Xingqiu EQ > Hu Tao E AAAAAAA Q
 ## [team]
 
 Defines the four team members — one per slot.
-Each slot has six fields: `character`, `cons`, `weapon4`, `weapon5`, `set`, and `main`.
+Each slot has seven fields: `character`, `cons`, `weapon4`, `weapon5`, `set`, `main`, and `gobletOptim`.
 
 ```ini
 slotN.character=<character id>
@@ -120,6 +120,7 @@ slotN.weapon4=<4-star weapon id>
 slotN.weapon5=<5-star weapon id>       # optional
 slotN.set=<artifact set id>
 slotN.main=<main stat shorthand>
+slotN.gobletOptim=<true|false>         # optional
 ```
 
 `N` must be `1`, `2`, `3`, or `4` — exactly four slots are required.
@@ -182,6 +183,20 @@ slot3.main=eec
 slot4.main=hdc
 ```
 
+### `gobletOptim` — Pre-optimize goblet for this slot (optional)
+
+When set to `true`, the CLI runs a quick pre-check for this character's goblet
+using the full team setup:
+
+- compares goblet from `interestStat` vs elemental DMG (`d`)
+- uses only the **first rotation**
+- uses around **10 iterations** and forces team CR to 100% to reduce RNG
+- keeps the better goblet result for all remaining calculations in that team combo
+
+```ini
+slot4.gobletOptim=true
+```
+
 ### Full team example
 
 ```ini
@@ -213,6 +228,7 @@ slot4.weapon4=r5favoniuswarbow
 slot4.weapon5=r1elegyfortheend
 slot4.set=4emblem
 slot4.main=hdc
+slot4.gobletOptim=true
 ```
 
 ---
@@ -359,6 +375,7 @@ slot4.weapon4=r5favoniuswarbow
 slot4.weapon5=r1elegyfortheend
 slot4.set=4emblem
 slot4.main=hdc
+slot4.gobletOptim=true
 
 [selection]
 maxRolls=45
