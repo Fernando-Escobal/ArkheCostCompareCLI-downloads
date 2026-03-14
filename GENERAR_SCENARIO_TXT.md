@@ -69,6 +69,8 @@ slot4.set=4emblem
 slot4.main=hdc
 
 [selection]
+maxRolls=45
+allowOvercapERRolls=false
 liquidRolls=20,22,24
 requireWeight100=true
 
@@ -89,4 +91,6 @@ tempDir=./.tmp
 - Los pesos de [rotations] deben sumar 100 cuando requireWeight100=true.
 - El equipo debe tener exactamente slot1..slot4.
 - slotN.weapon4 es obligatorio.
-- liquidRolls debe tener al menos un entero.
+- maxRolls es opcional, por defecto 45, y debe estar entre 15 y 45.
+- allowOvercapERRolls es opcional. Si vale true, cuando ni el reloj ER ni el maximo normal de rolls de ER alcanzan la recarga pedida, se permiten rolls extra solo en ER, pero nunca por encima del total de liquidRolls disponible.
+- liquidRolls debe tener al menos un entero y cada valor debe estar entre 20 y maxRolls.

@@ -27,9 +27,9 @@ Every other non-empty line must follow the `key=value` format.
 
 General information about this scenario.
 
-| Key         | Required | Description                                 |
-| ----------- | -------- | ------------------------------------------- |
-| `name`    | No       | A label for the scenario (used in logs).    |
+| Key       | Required | Description                               |
+| --------- | -------- | ----------------------------------------- |
+| `name`    | No       | A label for the scenario (used in logs).  |
 | `version` | No       | Your own version number. Defaults to `1`. |
 
 ```ini
@@ -44,18 +44,18 @@ version=1
 
 Controls how gcsim runs each build.
 
-| Key              | Default    | Description                                                                                                                   |
-| ---------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `iterations`   | `100`    | Number of gcsim iterations per build. Higher = more accurate, slower.                                                         |
-| `rots`         | `4`      | Number of rotation cycles gcsim simulates.                                                                                    |
-| `parallel`     | `4`      | How many gcsim processes run in parallel. Keep at or below your CPU core count.                                               |
-| `timeoutMs`    | `120000` | Max milliseconds allowed per gcsim run before it is killed.                                                                   |
+| Key            | Default  | Description                                                                                                               |
+| -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `iterations`   | `100`    | Number of gcsim iterations per build. Higher = more accurate, slower.                                                     |
+| `rots`         | `4`      | Number of rotation cycles gcsim simulates.                                                                                |
+| `parallel`     | `4`      | How many gcsim processes run in parallel. Keep at or below your CPU core count.                                           |
+| `timeoutMs`    | `120000` | Max milliseconds allowed per gcsim run before it is killed.                                                               |
 | `gcsimPath`    | _(auto)_ | Absolute or relative path to the `gcsim` executable. If empty, the CLI looks for `../gcsim/gcsim.exe` relative to itself. |
-| `erIterations` | `350`    | Iterations used when computing Energy Recharge requirements.                                                                  |
-| `erPercentile` | `0.8`    | ER percentile target (0–1).`0.8` means "cover 80% of runs".                                                                |
-| `enableER`     | `false`  | Set `true` to automatically compute and apply ER thresholds per character.                                                  |
-| `substatOptim` | `false`  | Set `true` to run gcsim's substat optimizer before the comparison.                                                          |
-| `gcsimVerbose` | `false`  | Set `true` to print full gcsim stdout to the console (useful for debugging).                                                |
+| `erIterations` | `350`    | Iterations used when computing Energy Recharge requirements.                                                              |
+| `erPercentile` | `0.8`    | ER percentile target (0–1).`0.8` means "cover 80% of runs".                                                               |
+| `enableER`     | `false`  | Set `true` to automatically compute and apply ER thresholds per character.                                                |
+| `substatOptim` | `false`  | Set `true` to run gcsim's substat optimizer before the comparison.                                                        |
+| `gcsimVerbose` | `false`  | Set `true` to print full gcsim stdout to the console (useful for debugging).                                              |
 
 ```ini
 [simulation]
@@ -163,10 +163,10 @@ slot3.set=2cw2pw         # mixed sets
 
 A 3-character code describing the main stats of Sands / Goblet / Circlet:
 
-| Position | Meaning           | Common values                                                                            |
-| -------- | ----------------- | ---------------------------------------------------------------------------------------- |
-| 1st char | Sands main stat   | `e` = EM, `h` = HP%, `a` = ATK%, `d` = DEF%, `r` = ER%                         |
-| 2nd char | Goblet main stat  | `e` = EM, `h` = HP%, `a` = ATK%, `d` = DEF%, `p` = Pyro/Hydro/etc. Dmg%        |
+| Position | Meaning           | Common values                                                                |
+| -------- | ----------------- | ---------------------------------------------------------------------------- |
+| 1st char | Sands main stat   | `e` = EM, `h` = HP%, `a` = ATK%, `d` = DEF%, `r` = ER%                       |
+| 2nd char | Goblet main stat  | `e` = EM, `h` = HP%, `a` = ATK%, `d` = DEF%, `p` = Pyro/Hydro/etc. Dmg%      |
 | 3rd char | Circlet main stat | `e` = EM, `h` = HP%, `a` = ATK%, `d` = DEF%, `c` = Crit Rate, `r` = Crit DMG |
 
 Examples:
@@ -237,15 +237,17 @@ slot4.gobletOptim=true
 
 Controls which build combinations are tested.
 
-| Key                  | Default        | Description                                                              |
-| -------------------- | -------------- | ------------------------------------------------------------------------ |
-| `maxRolls`         | `45`         | Global roll budget cap used by optimization formulas. Valid range: `15..45`. |
-| `liquidRolls`      | _(required)_ | Comma-separated list of total liquid roll counts to simulate.            |
-| `requireWeight100` | `true`       | If `true`, validates that all rotation weights sum to exactly `100`. |
+| Key                   | Default      | Description                                                                                                                                            |
+| --------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `maxRolls`            | `45`         | Global roll budget cap used by optimization formulas. Valid range: `15..45`.                                                                           |
+| `allowOvercapERRolls` | `false`      | If `true`, ER can exceed the normal per-stat cap after ER sands if capped ER still does not meet the requirement, but never above total `liquidRolls`. |
+| `liquidRolls`         | _(required)_ | Comma-separated list of total liquid roll counts to simulate.                                                                                          |
+| `requireWeight100`    | `true`       | If `true`, validates that all rotation weights sum to exactly `100`.                                                                                   |
 
 ```ini
 [selection]
 maxRolls=45
+allowOvercapERRolls=false
 liquidRolls=20,22,24
 requireWeight100=true
 ```
@@ -256,6 +258,8 @@ combination of: `cons values × weapon choices × liquidRolls values`.
 
 For valid inputs, each liquid rolls value must satisfy: `20 <= liquidRoll <= maxRolls`.
 
+When `allowOvercapERRolls=true`, the CLI keeps the normal `maxRolls` / per-stat cap rules for all stats except Energy Recharge. If a character still cannot reach required ER after switching to ER sands and using the normal maximum ER rolls, the builder can assign extra ER rolls beyond the usual per-stat cap, but never more than the total `liquidRolls` available for that build.
+
 > Use `dry-run` to preview how many total builds will be generated before
 > committing to a full `run`.
 
@@ -265,15 +269,15 @@ For valid inputs, each liquid rolls value must satisfy: `20 <= liquidRoll <= max
 
 Controls where results are saved and how they are sorted.
 
-| Key          | Default               | Description                                                             |
-| ------------ | --------------------- | ----------------------------------------------------------------------- |
-| `csv`      | `./out/results.csv` | Path for the CSV output file.                                           |
-| `json`     | _(empty)_           | Path for the JSON output file. Leave empty to skip.                     |
-| `sortBy`   | `weightedDps`       | Column to sort results by. Options:`weightedDps`, `dps`, `label`. |
+| Key        | Default             | Description                                                         |
+| ---------- | ------------------- | ------------------------------------------------------------------- |
+| `csv`      | `./out/results.csv` | Path for the CSV output file.                                       |
+| `json`     | _(empty)_           | Path for the JSON output file. Leave empty to skip.                 |
+| `sortBy`   | `weightedDps`       | Column to sort results by. Options:`weightedDps`, `dps`, `label`.   |
 | `sortDir`  | `desc`              | Sort direction.`desc` = highest first, `asc` = lowest first.        |
-| `topN`     | `0`                 | Keep only the top N results.`0` = keep all.                           |
-| `keepTemp` | `false`             | If `true`, the temporary gcsim files are not deleted after the run.   |
-| `tempDir`  | `./.tmp`            | Directory for intermediate per-build gcsim files.                       |
+| `topN`     | `0`                 | Keep only the top N results.`0` = keep all.                         |
+| `keepTemp` | `false`             | If `true`, the temporary gcsim files are not deleted after the run. |
+| `tempDir`  | `./.tmp`            | Directory for intermediate per-build gcsim files.                   |
 
 ```ini
 [output]
@@ -301,12 +305,12 @@ or `2` (weapon4 + weapon5) if a 5-star is provided.
 
 **Example** with the team above:
 
-| Slot    | Cons options | Weapon choices        |
-| ------- | ------------ | --------------------- |
-| Hu Tao  | 0, 1 → 2    | staff + dragon → 2   |
-| Xingqiu | 6 → 1       | only weapon4 → 1     |
-| Zhongli | 0 → 1       | only weapon4 → 1     |
-| Yelan   | 0, 1 → 2    | elegy + favonius → 2 |
+| Slot    | Cons options | Weapon choices       |
+| ------- | ------------ | -------------------- |
+| Hu Tao  | 0, 1 → 2     | staff + dragon → 2   |
+| Xingqiu | 6 → 1        | only weapon4 → 1     |
+| Zhongli | 0 → 1        | only weapon4 → 1     |
+| Yelan   | 0, 1 → 2     | elegy + favonius → 2 |
 
 With `liquidRolls=20,22,24` (3 values):
 

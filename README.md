@@ -86,6 +86,7 @@ arkhe-cc run --scenario ./example.scenario.txt --gcsimPath /opt/gcsim/gcsim
 - slotN.weapon4 is required
 - If requireWeight100 is true, rotation weights must sum to 100
 - liquidRolls must include at least one integer
+- allowOvercapERRolls can be set in [selection] to let ER exceed the normal per-stat roll cap when ER sands plus capped ER rolls still do not reach the required recharge; it is still limited by total liquidRolls
 
 ## Output
 
